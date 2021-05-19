@@ -7,3 +7,4 @@ dist
 venv
 package-lock.json
 package.json
+.idea
