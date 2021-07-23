@@ -110,7 +110,7 @@ function xyzzy() {
 - Hoisting & `var` statement practise questions
 
 JS operates in two main phases:
-1. creation phase - find all the variable, function and class declarations. record name and designate scope
+1. creation phase - find all the variable, function and class declarations, record name and designate scope
 2. execution phase - function-scoped declarations are moved to the function's beginning,
 block-scoped declarations are moved to the block's start
 
@@ -875,7 +875,7 @@ in Node all code is part of a CommonJS module
 - `__dirname` - the absolute pathname of the directory that contains the module
 - `__filename` - the absolute pathname of the file that contains the module
 
-### JS Modules
+### JS/ES Modules
 Babel transpiles ES6 code to ES5 code if using JS Modules with an older version of Node
 
 Webpack consolidates all of the modules you need into a single file
@@ -993,11 +993,10 @@ for exceptional conditions, not normal and expected conditions
 
 catch exceptions when you can do something to recover from the error
 
-throw exceptions when you can't ignore the problem and can't recover from it in your local code
+throw exceptions when you can't ignore the problem and can't recover from it in your local code,
+when an event occurs that should not be ignored or when the condition is truly anomalous or exceptional
 
 not for flow control
-
-throw an exception when an event occurs that should not be ignored or when the condition is truly anomalous or exceptional
 
 only try to handle specific exceptions you know how to handle, otherwise re-throw error
 
@@ -1056,10 +1055,10 @@ most functions should return a useful value or they should have a side effect, b
 
 ### Pure Functions
 - Have no side effects
-- give nthe same set of arguments, always returns the same value
-   i.e. the return value depens solely on its arguments during the function's lifetime
+- given the same set of arguments, always returns the same value
+   i.e. the return value depends solely on its arguments during the function's lifetime
 
-A function's lifetime begins when the function is created and ends wen the function is destroyed.
+A function's lifetime begins when the function is created and ends when the function is destroyed.
 i.e. nested functions have a lifetime that span a single execution of the outer function
 
 A function call is pure or impure.
@@ -1091,7 +1090,7 @@ describe('The Car class', () => { // optional description to group tests
 );
 ```
 
-Matchers - `toBe, toEqual, toBeUndefined, toThrow, toBeNull, toBeTruthy, toContain`
+Matchers - `toBe, toEqual, toBeUndefined, toThrow, toBeNull, toBeTruthy, toContain, toMatch`
 
 Inverting a matcher - `expect(...).not.toBe(...)`
 
@@ -1133,7 +1132,7 @@ or both
 
 `npm` command, bundled with node, manages packages
 
-e.g - `eslint, jest, realine-sync`
+e.g - `eslint, jest, readline-sync`
 
 ## Local vs Global Packages
 
@@ -1207,7 +1206,7 @@ run a local npm executable package,
 npx checks for a local installation first, if it can't find the package locally or globally,
 it downloads and uses a temporary version of the named package.
 ```commandline
-npm eslint lib/todolist.js
+npx eslint lib/todolist.js
 ```
 
 ### Deleting a dependency

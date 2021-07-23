@@ -175,6 +175,7 @@ let bazQux = Object.create(Account).init('baz@qux.com', '123456', 'baz', 'qux');
 console.log(fooBar.firstName('abc'));              // logs 'Invalid Password'
 console.log(fooBar.email('abc'));
 */
+
 // mini inventory management system
 // check  that all necessary info are present and valid
 let ItemCreator = (function(name, category, quantity) {
@@ -256,15 +257,22 @@ let ReportManager = {
   },
   // maintaining reference to ReportManager object using closures
   createReporter(skuCode) {
-    return (function() {
-      let item = this.items.items[this.items.getItemIndexByskuCode(skuCode)];
-      return {
-        itemInfo() {
-          Object.entries(item)
-            .forEach(([key, value]) => console.log(`${key}: ${value}`));
-        }
+    // return (function() {
+    //   let item = this.items.items[this.items.getItemIndexByskuCode(skuCode)];
+    //   return {
+    //     itemInfo() {
+    //       Object.entries(item)
+    //         .forEach(([key, value]) => console.log(`${key}: ${value}`));
+    //     }
+    //   }
+    // }).bind(this)();
+    let item = this.items.items[this.items.getItemIndexByskuCode(skuCode)];
+    return {
+      itemInfo() {
+        Object.entries(item)
+          .forEach(([key, value]) => console.log(`${key}: ${value}`));
       }
-    }).bind(this)();
+    };
   },
 
   reportInStock() {
@@ -286,24 +294,24 @@ ItemManager.create('football', 'sports', 3);              // valid item
 ItemManager.create('kitchen pot', 'cooking items', 0);
 ItemManager.create('kitchen pot', 'cooking', 3);          // valid item
 // returns list with the 4 valid items
-console.log(ItemManager.items);
+// console.log(ItemManager.items);
 
 ReportManager.init(ItemManager);
 // logs soccer ball,football,kitchen pot
-ReportManager.reportInStock();
+// ReportManager.reportInStock();
 
-ItemManager.update('SOCSP', { quantity: 0 });
-// returns list with the item objects for football and kitchen pot
-ItemManager.inStock();
-// football,kitchen pot
-ReportManager.reportInStock();
-
-// returns list with the item objects for basket ball, soccer ball, and football
-ItemManager.itemsInCategory('sports');
-
-ItemManager.delete('SOCSP');
-// returns list the remaining 3 valid items (soccer ball is removed from the list)
-console.log(ItemManager.items);
+// ItemManager.update('SOCSP', { quantity: 0 });
+// // returns list with the item objects for football and kitchen pot
+// ItemManager.inStock();
+// // football,kitchen pot
+// ReportManager.reportInStock();
+//
+// // returns list with the item objects for basket ball, soccer ball, and football
+// ItemManager.itemsInCategory('sports');
+//
+// ItemManager.delete('SOCSP');
+// // returns list the remaining 3 valid items (soccer ball is removed from the list)
+// console.log(ItemManager.items);
 
 let kitchenPotReporter = ReportManager.createReporter('KITCO');
 kitchenPotReporter.itemInfo();
@@ -314,9 +322,18 @@ kitchenPotReporter.itemInfo();
 // quantity: 3
 
 ItemManager.update('KITCO', { quantity: 10 });
-kitchenPotReporter.itemInfo();
+// kitchenPotReporter.itemInfo();
 // logs
 // skuCode: KITCO
 // itemName: kitchen pot
 // category: cooking
 // quantity: 10
+
+ItemManager.create('dining spoon', 'cooking', 3);
+let diningSpoonReporter = ReportManager.createReporter('DINCO');
+kitchenPotReporter.itemInfo();
+diningSpoonReporter.itemInfo();
+
+ItemManager.delete('KITCO');
+diningSpoonReporter.itemInfo();
+kitchenPotReporter.itemInfo();
